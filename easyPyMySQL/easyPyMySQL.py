@@ -5,6 +5,7 @@
 import pymysql
 from bs4 import BeautifulSoup
 from .Table import Table
+import sys,os
 """
 
 """
@@ -19,6 +20,8 @@ class mysqlHelper(object):
         cls._subclasses.append(cls)
 
     def __init__(cls, configFilePath):
+        workpath = os.path.split(sys.argv[0])[0]
+        configFilePath = os.path.join(workpath, configFilePath)
         with open(configFilePath, "rb") as f:
             page = BeautifulSoup(f.read().decode("utf-8"), "html.parser")
             dbConfig = page.find("tr", id = 'dbConfig')
